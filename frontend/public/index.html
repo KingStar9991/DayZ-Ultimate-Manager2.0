@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>DayZ Ultimate Manager</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../src/styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">DayZ Ultimate Manager</div>
+      <div class="actions">
+        <button id="btnOpenExplorer">Open Servers</button>
+        <button id="btnSimulate">Simulate Update</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <h4>Servers</h4>
+        <ul id="serversList"><li>No servers detected</li></ul>
+      </aside>
+
+      <section class="content">
+        <div class="panel">
+          <h3>Console</h3>
+          <pre id="console" class="console">Waiting for backend...</pre>
+        </div>
+
+        <div class="panel">
+          <h3>Editor (Placeholder)</h3>
+          <div id="editor">Editor area</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../src/wsClient.js"></script>
+  <script src="../src/app.js"></script>
+</body>
+</html>

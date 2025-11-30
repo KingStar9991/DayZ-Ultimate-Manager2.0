@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.log
+.env
+*.secret
+.DS_Store
+.vscode/
+tmp/
+npm-debug.log
+data/logs/
