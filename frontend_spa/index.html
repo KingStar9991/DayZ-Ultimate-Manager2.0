@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DayZ Ultimate Manager — SPA</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+<div id="shell" class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">TITANIC</div>
+      <div class="sub">DayZ Ultimate Manager</div>
+    </div>
+    <nav class="nav">
+      <button data-page="dashboard" class="nav-btn active">Dashboard</button>
+      <button data-page="server" class="nav-btn">Server</button>
+      <button data-page="mods" class="nav-btn">Mods</button>
+      <button data-page="logs" class="nav-btn">Logs</button>
+      <button data-page="economy" class="nav-btn">Loot Economy</button>
+      <button data-page="trader" class="nav-btn">Trader Editor</button>
+      <button data-page="mapgroups" class="nav-btn">Map Spawns</button>
+      <button data-page="settings" class="nav-btn">Settings</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button id="btn-backup" class="action small">Backup Server</button>
+      <button id="btn-about" class="action small">About</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="title" id="page-title">Dashboard</div>
+      <div class="top-actions">
+        <button id="open-console" class="action">Console</button>
+        <button id="refresh-btn" class="action">Refresh</button>
+      </div>
+    </header>
+
+    <section id="content" class="content">
+      <!-- pages will be injected here -->
+    </section>
+
+    <footer class="footer">
+      <div>DayZ Ultimate Manager — Local</div>
+      <div id="status">Status: <span id="srv-status">offline</span></div>
+    </footer>
+  </main>
+</div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>

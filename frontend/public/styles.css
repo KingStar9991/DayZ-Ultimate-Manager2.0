@@ -1,0 +1,1 @@
+:root{--accent:#2dd4bf;--muted:#9fb0bf} body{margin:0;font-family:Inter,Segoe UI,Roboto;background:linear-gradient(180deg,#031018,#041018);color:#e6eef6} .card{background:rgba(255,255,255,0.03);padding:12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.6)} .glass{backdrop-filter:blur(6px)} .logo{font-weight:800;color:var(--accent)}

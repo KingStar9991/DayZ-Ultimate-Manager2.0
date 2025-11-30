@@ -1,0 +1,16 @@
+﻿<div class='card'>
+  <h3>RPT / Server Logs</h3>
+  <div style='margin-top:8px'>
+    <div style='display:flex;gap:8px;margin-bottom:8px'>
+      <button class='action' onclick='refreshLogs()'>Refresh</button>
+      <button class='action' onclick='clearLogs()'>Clear</button>
+    </div>
+    <pre id='rpt-view' style='height:480px;overflow:auto;background:rgba(0,0,0,0.14);padding:10px;border-radius:8px'>No logs loaded (stub)</pre>
+  </div>
+</div>
+
+<script>
+window.pageInit = ()=>{ refreshLogs(); }
+function refreshLogs(){ document.getElementById('rpt-view').textContent = 'Loading last 500 lines...\\n(Stub - connect backend to load real logs)'; }
+function clearLogs(){ if(confirm('Clear logs? (stub)')) document.getElementById('rpt-view').textContent = ''; }
+</script>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DayZ Ultimate Manager 2.0 - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 122, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 122, 255, 0.05) 0px, transparent 50%);
+        }
+        
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        
+        .btn-primary {
+            background: #007AFF;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: #0051D5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+        
+        .sidebar-item.active {
+            background: #007AFF;
+            color: white;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+        
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .scrollbar-thin {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .pulse-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="h-screen flex flex-col text-white">
+        <!-- Navbar -->
+        <nav class="glass-panel border-b border-white/10 px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <h1 class="text-2xl font-bold text-white">DayZ Ultimate Manager</h1>
+                <span class="text-sm text-gray-400">v2.0.0</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-gray-400">CPU:</span>
+                    <span class="text-white">12.5%</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-gray-400">RAM:</span>
+                    <span class="text-white">45.2%</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-gray-400">Server:</span>
+                    <span class="text-green-400 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-400 rounded-full pulse-dot"></span>
+                        Online
+                    </span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="w-64 glass-panel border-r border-white/10 p-4 overflow-y-auto scrollbar-thin">
+                <div class="space-y-1">
+                    <div class="sidebar-item active">
+                        <span class="text-xl">🏠</span>
+                        <span class="font-medium">Dashboard</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">🖥️</span>
+                        <span class="font-medium">Server Status</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">👥</span>
+                        <span class="font-medium">Live Player List</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">📊</span>
+                        <span class="font-medium">Performance Monitor</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">📝</span>
+                        <span class="font-medium">Logs Viewer</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">💥</span>
+                        <span class="font-medium">Crash Log Analyzer</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">💾</span>
+                        <span class="font-medium">Backup Manager</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">⏰</span>
+                        <span class="font-medium">Auto Restart Scheduler</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">📁</span>
+                        <span class="font-medium">File Browser</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">⚙️</span>
+                        <span class="font-medium">Server.cfg Editor</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">📚</span>
+                        <span class="font-medium">Mod Manager</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">📦</span>
+                        <span class="font-medium">types.xml Editor</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">🏪</span>
+                        <span class="font-medium">Trader Creator</span>
+                    </div>
+                    <div class="sidebar-item">
+                        <span class="text-xl">🗺️</span>
+                        <span class="font-medium">2D Map Viewer</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto scrollbar-thin p-6 animate-fade-in">
+                <div class="space-y-6">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between">
+                        <h1 class="text-3xl font-bold text-white">Dashboard</h1>
+                        <div class="flex gap-3">
+                            <button class="btn-primary">Start Server</button>
+                            <button class="btn-secondary">Stop Server</button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="stat-card">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-400 text-sm">Server Status</span>
+                                <span class="text-2xl">🟢</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Online</h3>
+                            <p class="text-gray-400 text-sm mt-1">2h 34m uptime</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-400 text-sm">Players Online</span>
+                                <span class="text-2xl">👥</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">24</h3>
+                            <p class="text-gray-400 text-sm mt-1">Max: 60</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-400 text-sm">CPU Usage</span>
+                                <span class="text-2xl">⚡</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">12.5%</h3>
+                            <p class="text-gray-400 text-sm mt-1">Server Process</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-400 text-sm">Memory Usage</span>
+                                <span class="text-2xl">💾</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">2.4 GB</h3>
+                            <p class="text-gray-400 text-sm mt-1">RAM Consumption</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions & Recent Activity -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="glass-panel p-6">
+                            <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button class="btn-secondary text-left p-4">
+                                    <div class="text-lg mb-1">⚙️</div>
+                                    <div class="font-medium">Server Config</div>
+                                </button>
+                                <button class="btn-secondary text-left p-4">
+                                    <div class="text-lg mb-1">📚</div>
+                                    <div class="font-medium">Mod Manager</div>
+                                </button>
+                                <button class="btn-secondary text-left p-4">
+                                    <div class="text-lg mb-1">📝</div>
+                                    <div class="font-medium">View Logs</div>
+                                </button>
+                                <button class="btn-secondary text-left p-4">
+                                    <div class="text-lg mb-1">💾</div>
+                                    <div class="font-medium">Backups</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6">
+                            <h2 class="text-xl font-bold mb-4">Recent Activity</h2>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 p-3 glass-card rounded-lg">
+                                    <span class="text-green-400">✓</span>
+                                    <div class="flex-1">
+                                        <div class="text-sm font-medium">Server started successfully</div>
+                                        <div class="text-xs text-gray-400">2 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 glass-card rounded-lg">
+                                    <span class="text-blue-400">ℹ</span>
+                                    <div class="flex-1">
+                                        <div class="text-sm font-medium">Mod updated: Community Framework</div>
+                                        <div class="text-xs text-gray-400">15 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 glass-card rounded-lg">
+                                    <span class="text-yellow-400">⚠</span>
+                                    <div class="flex-1">
+                                        <div class="text-sm font-medium">Backup scheduled for tonight</div>
+                                        <div class="text-xs text-gray-400">1 hour ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Resources -->
+                    <div class="glass-panel p-6">
+                        <h2 class="text-xl font-bold mb-4">System Resources</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm text-gray-400">System CPU</span>
+                                    <span class="text-sm font-medium">12.5%</span>
+                                </div>
+                                <div class="w-full bg-white/5 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full transition-all" style="width: 12.5%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm text-gray-400">System RAM</span>
+                                    <span class="text-sm font-medium">45.2%</span>
+                                </div>
+                                <div class="w-full bg-white/5 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full transition-all" style="width: 45.2%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm text-gray-400">Disk Usage</span>
+                                    <span class="text-sm font-medium">45%</span>
+                                </div>
+                                <div class="w-full bg-white/5 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full transition-all" style="width: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+

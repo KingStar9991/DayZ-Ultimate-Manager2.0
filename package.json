@@ -1,64 +1,109 @@
 {
   "name": "dayz-ultimate-manager",
   "version": "2.0.0",
-  "description": "DayZ Ultimate Manager — Full Control Panel for DayZ Servers",
-  "type": "commonjs",
+  "description": "DayZ Ultimate Manager - Complete Server Management Suite",
   "main": "electron/main.js",
   "scripts": {
-    "backend": "node backend/mainServer.js",
-    "frontend": "live-server frontend/public --port=8080",
-    "dev": "concurrently \"npm run backend\" \"npm run electron-dev\"",
+    "backend": "node backend/server.js",
     "electron-dev": "electron .",
-    "build:win": "electron-builder --win --x64",
-    "build": "electron-builder"
+    "dev": "concurrently \"npm run backend\" \"wait-on http://localhost:3215 && npm run electron-dev\"",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "pack:win": "electron-packager . \"DayZ Ultimate Manager\" --platform=win32 --arch=x64 --out=dist --overwrite --asar --asar-unpack=backend --ignore=\"node_modules/(electron-builder)\"",
+    "pack:win-fresh": "Remove-Item -Recurse -Force \"dist\\DayZ Ultimate Manager-win32-x64\" -ErrorAction SilentlyContinue; electron-packager . \"DayZ Ultimate Manager\" --platform=win32 --arch=x64 --out=dist --overwrite --asar --asar-unpack=backend --ignore=\"node_modules/(electron-builder)\"",
+    "build:linux": "electron-builder --linux",
+    "build:mac": "electron-builder --mac"
   },
-  "author": "KingStar9991",
+  "keywords": [
+    "dayz",
+    "server",
+    "manager",
+    "electron"
+  ],
+  "author": "DayZ Ultimate Manager",
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.6.7",
-    "child-process": "^1.0.2",
+    "archiver": "^6.0.1",
+    "body-parser": "^1.20.2",
     "chokidar": "^3.5.3",
-    "concurrently": "^8.2.0",
+    "cors": "^2.8.5",
     "electron-updater": "^6.6.2",
-    "express": "^4.19.2",
-    "fs-extra": "^11.2.0",
-    "ws": "^8.17.0"
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.1",
+    "multer": "^1.4.5-lts.1",
+    "pidusage": "^3.0.2",
+    "systeminformation": "^5.21.20",
+    "unzipper": "^0.10.14",
+    "ws": "^8.13.0",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "electron": "^30.0.0",
-    "electron-builder": "^24.13.3",
-    "live-server": "^1.2.2"
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "electron-packager": "^17.1.2",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "wait-on": "^7.2.0"
   },
   "build": {
-    "appId": "com.dayz.ultimate.manager",
+    "appId": "com.dayzultimatemanager.app",
     "productName": "DayZ Ultimate Manager",
     "directories": {
       "output": "dist"
     },
     "files": [
+      "electron/**/*",
       "backend/**/*",
       "frontend/**/*",
-      "electron/**/*",
-      "data/**/*",
-      "package.json"
+      "package.json",
+      "node_modules/**/*",
+      "!**/*.map",
+      "!node_modules/.cache/**/*"
+    ],
+    "asarUnpack": [
+      "backend/**/*"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "icon.ico"
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "sign": null,
+      "signingHashAlgorithms": []
     },
-	  "build": {
-    "appId": "com.dayz.ultimate.manager",
-    "productName": "DayZ Ultimate Manager",
-    "directories": { "output": "dist" },
-    "publish":[ { "provider":"github", "owner":"KingStar9991", "repo":"DayZ-Ultimate-Manager2.0" } ],
-    "files": [ "backend/**/*", "frontend/**/*", "electron/**/*", "data/**/*", "package.json" ],
-    "win": { "target":"nsis", "icon":"icon.ico" },
-    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true }
-  },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "build/icon.png",
+      "category": "Utility"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities"
+    },
     "nsis": {
       "oneClick": false,
-      "perMachine": false,
       "allowToChangeInstallationDirectory": true
+    },
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
     }
   }
 }

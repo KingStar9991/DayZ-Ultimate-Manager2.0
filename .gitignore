@@ -1,10 +1,7 @@
 node_modules/
 dist/
+backups/
+Workshop/
 *.log
-.env
-*.secret
 .DS_Store
 .vscode/
-tmp/
-npm-debug.log
-data/logs/

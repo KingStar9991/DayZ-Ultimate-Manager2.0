@@ -1,0 +1,35 @@
+﻿<div class='grid'>
+  <div class='card'>
+    <h3>Server Control</h3>
+    <div style='margin-top:8px'>
+      <div class='kv'>Status: <strong id='srv-control-status'>offline</strong></div>
+      <div style='margin-top:12px'>
+        <button class='action' onclick='startSrv()'>Start</button>
+        <button class='action' onclick='stopSrv()'>Stop</button>
+        <button class='action' onclick='restartSrv()'>Restart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class='card'>
+    <h3>Start Parameters</h3>
+    <div style='margin-top:8px'>
+      <textarea id='start-params' style='width:100%;height:110px;background:rgba(0,0,0,0.15);color:var(--text);border-radius:8px;padding:8px'>-config=serverDZ.cfg -port=2302 -profiles=!ServerProfiles -mod=@CF;@BaseBuildingPlus</textarea>
+      <div style='margin-top:8px'><button class='action' onclick='saveParams()'>Save</button></div>
+    </div>
+  </div>
+
+  <div class='card'>
+    <h3>Console / RCon</h3>
+    <div style='height:220px;background:rgba(0,0,0,0.15);border-radius:8px;padding:8px;overflow:auto'>Console output will show here</div>
+    <div style='margin-top:8px'><input style='width:70%' placeholder='RCon command'><button class='action'>Send</button></div>
+  </div>
+</div>
+
+<script>
+window.pageInit = ()=>{ document.getElementById('srv-control-status').textContent = document.getElementById('srv-status')?.textContent || 'offline'; }
+function startSrv(){ alert('Starting server... (stub)') }
+function stopSrv(){ alert('Stopping server... (stub)') }
+function restartSrv(){ alert('Restarting server... (stub)') }
+function saveParams(){ alert('Saved params (stub)') }
+</script>

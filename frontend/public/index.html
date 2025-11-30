@@ -1,42 +1,57 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>DayZ Ultimate Manager</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="../src/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DayZ Ultimate Manager</title>
+    <link rel="stylesheet" href="/css/tailwind.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
-  <div id="app">
-    <header class="topbar">
-      <div class="brand">DayZ Ultimate Manager</div>
-      <div class="actions">
-        <button id="btnOpenExplorer">Open Servers</button>
-        <button id="btnSimulate">Simulate Update</button>
-      </div>
-    </header>
+    <div id="app" class="h-screen flex flex-col">
+        <!-- Navbar -->
+        <nav class="glass-panel border-b border-gtx-border px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <h1 class="text-2xl font-bold text-white">DayZ Ultimate Manager</h1>
+                <span class="text-sm text-gray-400" id="app-version">v2.0.0</span>
+            </div>
+            <div class="flex items-center gap-4" id="system-info">
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-gray-400">CPU:</span>
+                    <span class="text-white" id="cpu-usage">0%</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-gray-400">RAM:</span>
+                    <span class="text-white" id="ram-usage">0%</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-gray-400">Server:</span>
+                    <span class="text-green-400" id="server-status">Offline</span>
+                </div>
+            </div>
+        </nav>
 
-    <main class="layout">
-      <aside class="sidebar">
-        <h4>Servers</h4>
-        <ul id="serversList"><li>No servers detected</li></ul>
-      </aside>
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="w-64 glass-panel border-r border-gtx-border p-4 overflow-y-auto scrollbar-thin" id="sidebar">
+                <!-- Sidebar content will be injected here -->
+            </aside>
 
-      <section class="content">
-        <div class="panel">
-          <h3>Console</h3>
-          <pre id="console" class="console">Waiting for backend...</pre>
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto scrollbar-thin p-6" id="main-content">
+                <!-- Page content will be injected here -->
+            </main>
         </div>
+    </div>
 
-        <div class="panel">
-          <h3>Editor (Placeholder)</h3>
-          <div id="editor">Editor area</div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script src="../src/wsClient.js"></script>
-  <script src="../src/app.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/router.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>

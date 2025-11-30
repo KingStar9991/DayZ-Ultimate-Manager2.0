@@ -1,0 +1,21 @@
+﻿<div class='card'>
+  <h3>Mod Manager</h3>
+  <div style='margin-top:8px'>
+    <div style='display:flex;gap:8px;margin-bottom:8px'>
+      <input id='ws-id' placeholder='Workshop ID' style='flex:1;padding:8px;border-radius:8px;background:rgba(0,0,0,0.12)'>
+      <button class='action' onclick='downloadMod()'>Download</button>
+    </div>
+    <div class='kv'>Local mods folder: <strong>serverfiles\\@mods</strong></div>
+    <div style='margin-top:12px'>
+      <div id='mod-list' style='max-height:300px;overflow:auto'></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.pageInit = function(){
+  const list = document.getElementById('mod-list');
+  list.innerHTML = '<div class=\"kv\">Scanning local mods (stub)...</div>';
+}
+function downloadMod(){ const id = document.getElementById('ws-id').value; if(!id) return alert('enter workshop id'); alert('Queued download for '+id); }
+</script>
